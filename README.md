@@ -5,6 +5,7 @@
 >Aplicația stochează:
 >- persoane: personID, nume, adresă
 >- evenimente: ID, dată, timp, descriere
+
 >Creați o aplicație care permite:
 > - gestiunea listei de persoane și evenimente.
 > - adaugă, șterge, modifică, lista de persoane, lista de evenimente
