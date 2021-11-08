@@ -1,11 +1,14 @@
 from entity_repository import evenList_repo
 from entities import eveniment
+from validator import validEveniment
+
 class listaEvenimente:
     def __init__(self):
         """Clasa pentru serviciul listei de evenimente
         """
         self.__index = 0
         self.__evenim = evenList_repo()
+        self.__validator = validEveniment()
 
     def getAll(self):
         return self.__evenim.getAll()
@@ -31,7 +34,7 @@ class listaEvenimente:
         event = eveniment(id, data, timp, descriere)
 
         try:
-            event.validate()
+            self.__validator.validator(event)
             self.__evenim.store(event)
         except ValueError as e:
             raise ValueError(e)
@@ -89,7 +92,7 @@ class listaEvenimente:
         aux_even = eveniment(0, data, timp, descriere)
 
         try:
-            aux_even.validate()
+            self.__validator.validator(aux_even)
         except ValueError as e:
             raise e
         

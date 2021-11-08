@@ -4,7 +4,7 @@ care pot fi realizate pe acestea
 """
 from entity_repository import persList_repo
 from entities import persoana
-
+from validator import validPersoana
 class listaPersoane:
     def __init__(self, index = 0):
         """
@@ -14,6 +14,7 @@ class listaPersoane:
         """
         self.__index = index*1000
         self.__persoane = persList_repo()
+        self.__valid = validPersoana()
 
     def getAll(self):
         return self.__persoane.getAll()
@@ -36,7 +37,7 @@ class listaPersoane:
         pers = persoana(id, nume, adresa)
 
         try: 
-            pers.validate()
+            self.__valid.validator(pers)
             self.__persoane.store(pers)
         
         except ValueError as e:
@@ -93,7 +94,7 @@ class listaPersoane:
         
         valid = persoana(0, nume, adresa)
         try:
-            valid.validate()
+            self.__valid.validator(valid)
         except ValueError as e:
             raise ValueError(e)
         

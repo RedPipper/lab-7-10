@@ -1,6 +1,4 @@
-"""Modul UI
- 
-"""
+"""Modul UI"""
 from types import FunctionType
 from lista_evenimente import listaEvenimente
 from lista_persoane import listaPersoane

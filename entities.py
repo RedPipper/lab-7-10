@@ -32,20 +32,7 @@ class persoana:
 
     def setAdresa(self, adresa):
         self.__adresa = adresa
-
-    def validate(self):
-        """Valideaza informatiile din obiect
-        """
-        if type(self.__personID) != int:
-            raise ValueError("Wrong id type")
         
-        if type(self.__nume) != str and type(self.__nume) != None :
-            raise ValueError("Wrong name type")
-        else:
-            if len(self.__nume.split(" "))<2:
-                raise ValueError("Numele trebuie sa contina cel putin doua cuvinte")
-
-
     def __eq__(self, other):
         """Defineste conceptul de egalitate intre persoane
         pers1 == pers2
@@ -66,18 +53,18 @@ class persoana:
         return "Persoana cu ID-ul: "+ str(self.__personID) + "\n" + "       Numele: " + self.__nume + '\n' + "     Adresa: " + self.__adresa + '\n' 
     
 def test_createPersoana():
-    pers1 = persoana(1, "Nicolae Guta", "Bulevardul Eternitatii nr 12")
+    pers1 = persoana(1, "Robert Codreanu", "Undeva la tara")
     assert(pers1.getID() == 1)
-    assert(pers1.getNume() == "Nicolae Guta")
-    assert(pers1.getAdresa() == "Bulevardul Eternitatii nr 12")
+    assert(pers1.getNume() == "Robert Codreanu")
+    assert(pers1.getAdresa() == "Undeva la tara")
 
-    pers1.setNume("Adrian Minune")
-    pers1.setAdresa("Strada Smecheriei nr 2")
+    pers1.setNume("Stratan Alexia")
+    pers1.setAdresa("Pacurari.")
     pers1.setId(2)
 
     assert(pers1.getID() == 2)
-    assert(pers1.getAdresa() == "Strada Smecheriei nr 2")
-    assert(pers1.getNume() == "Adrian Minune")
+    assert(pers1.getAdresa() == "Pacurari.")
+    assert(pers1.getNume() == "Stratan Alexia")
 
 test_createPersoana()
 
@@ -125,30 +112,7 @@ class eveniment:
         """Valideaza datele din obiect
         """
 
-        if type(self.__ID) != int :
-            raise ValueError("Wrong id type")
         
-        if type(self.__data) != str and type(self.__data) != None:
-            raise ValueError("Wrong data type")
-        else:
-            if self.__data.find("/"):
-                if len(self.__data.split("/")) != 3:
-                    raise ValueError("Wrong data format")
-            else:
-                raise ValueError("Wrong data format")
-        
-        if type(self.__timp) != str and type(self.__timp) != None:
-            raise ValueError("Wrong timp type")
-        else:
-            if self.__timp.find(":"):
-                a = self.__timp.split(":")
-                if len(self.__timp.split(":")) != 2:
-                    raise ValueError("Wrong timp format")
-            else:
-                raise ValueError("Wrong timp format")
-
-        if type(self.__descriere) != str and type(self.__descriere) != None :
-            raise ValueError("Wrong descriere type")
 
     def __str__(self) -> str:
         """Afiseaza datele evenimentului intr-un format predefinit
