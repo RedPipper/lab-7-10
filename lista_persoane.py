@@ -92,17 +92,53 @@ class listaPersoane:
         pos = self.getPIndex(IDp)
         pers = self.getPersoana(pos)
         
+        #validate section
         valid = persoana(0, nume, adresa)
         try:
             self.__valid.validator(valid)
         except ValueError as e:
             raise ValueError(e)
         
+        #modif section
         if nume != None:
             pers.setNume(nume)
         
         if adresa != None:
             pers.setAdresa(adresa)
+
+    def searchPers(self, nume=None, adresa=None):
+        """Cauta persoane dupa nume, adresa sau ambele.
+
+        Args:
+            nume (str, optional): Numele persoanei cautate. Defaults to None.
+            adresa (str, optional): Adresa persoanei cautate. Defaults to None.
+
+        Raises:
+            ValueError: Datele introduse sunt gresite
+
+        Returns:
+            int: index-ul persoanei
+        """
+        #validate section
+        search = persoana(0, nume, adresa)
+        try:
+            self.__valid.validator(search)
+        except ValueError as e:
+            raise ValueError(e)
+
+        #search section
+        lista = self.getAll()
+        for index, pers in enumerate(lista):
+            if search.getNume() == None:
+                if search.getAdresa() == pers.getAdresa():
+                    return index
+            if search.getAdresa() == None:
+                if search.getNume() == pers.getNume():
+                    return index
+            if search.getNume() == pers.getNume() and search.getAdresa() == pers.getAdresa():
+                return index
+        
+
          
         
 def test_addPerson():
@@ -130,11 +166,32 @@ def test_modifPerson():
     pers = perslist.getPersoana(index)
     assert(pers.getNume() == "Iftode George")
     
+def test_searchPersoana():
+    perslist = listaPersoane(0)
+    perslist.addPersoana("Bolfa Alex", "Strada Pacii nr 23")
+    perslist.addPersoana("Iftode Vlad", "Strada Pacii nr 18")
+    perslist.addPersoana("Bulacovschi Ana", "Strada nr 15")
+    perslist.addPersoana("Stratan Alexia", "Strada Pacii nr 17")
+
+
     
+    ans = perslist.searchPers(nume = "Stratan Alexia")
+    assert(ans == 3)
+    ans = perslist.searchPers(nume = "Bolfa Alex")
+    assert(ans == 0)
+    ans = perslist.searchPers(adresa="Strada Pacii nr 17")
+    assert(ans == 3)
+
+
+
+    
+
+
     
 
 test_deletePerson()
 test_addPerson()
 test_modifPerson()
+test_searchPersoana()
 
 

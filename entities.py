@@ -39,9 +39,11 @@ class persoana:
 
         return True daca pers self este egala cu pers other
         """
-        if self.__nume == other.getNume() and self.__adresa == other.getAdresa():
+        if ( self.__nume == other.getNume() and self.__adresa == other.getAdresa()):
             return True
+
         
+
         return False
 
     def __str__(self):
@@ -112,7 +114,11 @@ class eveniment:
         """Valideaza datele din obiect
         """
 
+    def __eq__(self, other):
+        if self.__descriere.replace(" ","") == other.getDescriere().replace(" ",""):
+            return True
         
+        return False
 
     def __str__(self) -> str:
         """Afiseaza datele evenimentului intr-un format predefinit
@@ -144,4 +150,4 @@ def test_creatEveniment():
 
 test_creatEveniment()
 
-    
+

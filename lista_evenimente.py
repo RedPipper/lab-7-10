@@ -105,6 +105,41 @@ class listaEvenimente:
         if type(descriere) != None:
             even.setDescriere(descriere)
 
+    def searchEvenim(self, data=None, timp=None, descriere=None):
+        """Cauta si returneaza evenimentele cu aceeasi data sau timp si returneaza un singur eveniment 
+        cu aceeasi descriere (se presupune ca evenimentele au descrieri diferite).
+
+        Args:
+            data (str, optional): Data evenimentului cautat. Defaults to None.
+            timp (str, optional): Ora/Timpul evenimentului cautat. Defaults to None.
+            descriere (str, optional): Descrierea evenimentului cautat. Defaults to None.
+
+        Raises:
+            e: O data introdusa incorect
+
+        Returns:
+            lst: lista cu evenimentele cautate
+            int: indexul evenimentului cu descrierea cautata
+        """
+        aux_even = eveniment(0, data, timp, descriere)
+
+        try:
+            self.__validator.validator(aux_even)
+        except ValueError as e:
+            raise e
+        
+        lst = self.getAll()
+        rsp = []
+        for index, evenim in enumerate(lst):
+            if evenim.getData() == data or evenim.getTimp() == timp:
+                rsp.append(index)
+            
+            if evenim.getDescriere() == descriere:
+                return index
+
+        return rsp 
+
+
 
 def test_addEveniment():
     lst = listaEvenimente()
@@ -135,8 +170,25 @@ def test_modifEveniment():
     lst.addEveniment("22/12/2020", "10:16", "Antrenament colindat")
     lst.addEveniment("22/12/2020", "10:17", "Antrenament colindat")
     
-    lst.modifElem(3, data=None, timp="11:12", descriere="Asculta-ma")
+    lst.modifEveniment(3, data=None, timp="11:12", descriere="Asculta-ma")
     assert(lst.getEveniment(lst.getEIndex(3)).getTimp() == "11:12")
+
+def test_searchEvenim():
+    lst = listaEvenimente()
+    lst.addEveniment("22/12/2020", "10:15", "Antrenament colindat")
+    lst.addEveniment("22/11/2021", "13:12", "Antrenament baschet")
+    lst.addEveniment("23/03/2019", "10:10", "Antrenament fotbal")
+
+    ans = lst.searchEvenim(data = "22/12/2020")
+    assert(len(ans) == 1 and ans[0] == 0)
+    ans = lst.searchEvenim(timp = "13:12")
+    assert(len(ans) == 1 and ans[0] == 1)
+    ans = lst.searchEvenim(descriere = "Antrenament fotbal")
+    assert(ans == 2)
+
+
 
 test_addEveniment()
 test_stergeEveniment()
+test_modifEveniment()
+test_searchEvenim()

@@ -11,6 +11,10 @@ class persList_repo:
         self.__pers = []
 
     def store(self, persoana):
+        for pers in self.__pers:
+            if pers == persoana:
+                raise ValueError("Persoana exista deja")
+
         self.__pers.append(persoana)
 
     def getAll(self):
@@ -46,6 +50,10 @@ class evenList_repo:
         self.__events = []
 
     def store(self, eveniment):
+        for even in self.__events:
+            if even == eveniment:
+                raise ValueError("Evenimentul exista deja ")
+
         self.__events.append(eveniment)
 
     def getAll(self):
@@ -64,13 +72,37 @@ class evenList_repo:
         return self.__events[pos]
         
 
-def test_persList():
+def test_eventList():
     a = evenList_repo()
     even = eveniment(1, "12/02/2022", "10:00", "Descriere de eveniment")
     a.store(even)
     assert(a.size() == 1)
 
+    
+    #!!!!!!!! Cum verifici daca programul afiseaza o exceptie???
+    
+    
     even = eveniment(28, "12/02/2022", "11:00", "Descriere de eveniment2")
     a.store(even)
     assert(a.size() == 2)
 
+test_persList()
+test_eventList()
+
+
+
+
+class stocInscrieri:
+    def __init__(self):
+        self.__inscrieri = []
+
+    def storeInscriere(self, IDpers, IDevent):
+        """Stochează legăturile 
+
+        Args:
+            IDpers (int): Id-ul persoanei înscrise
+            IDevent (int): Id-ul evenimentului
+        """
+        inscriere = (IDpers, IDevent)
+        self.__inscrieri.append(inscriere)
+    
