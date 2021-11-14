@@ -151,3 +151,14 @@ def test_creatEveniment():
 test_creatEveniment()
 
 
+class legatura:
+    def __init__(self, IDp, IDe):
+        self.__IDp = IDp
+        self.__IDe = IDe
+
+    def getIDpers(self):
+        return self.__IDp
+
+    def getIDeven(self):
+        return self.__IDe
+

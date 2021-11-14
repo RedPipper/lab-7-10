@@ -131,12 +131,12 @@ class listaPersoane:
         for index, pers in enumerate(lista):
             if search.getNume() == None:
                 if search.getAdresa() == pers.getAdresa():
-                    return index
+                    return pers.getID()
             if search.getAdresa() == None:
                 if search.getNume() == pers.getNume():
-                    return index
+                    return pers.getID()
             if search.getNume() == pers.getNume() and search.getAdresa() == pers.getAdresa():
-                return index
+                return pers.getID()
         
 
          
@@ -176,11 +176,11 @@ def test_searchPersoana():
 
     
     ans = perslist.searchPers(nume = "Stratan Alexia")
-    assert(ans == 3)
+    assert(ans == 4)
     ans = perslist.searchPers(nume = "Bolfa Alex")
-    assert(ans == 0)
+    assert(ans == 1)
     ans = perslist.searchPers(adresa="Strada Pacii nr 17")
-    assert(ans == 3)
+    assert(ans == 4)
 
 
 

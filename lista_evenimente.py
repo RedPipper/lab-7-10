@@ -132,10 +132,10 @@ class listaEvenimente:
         rsp = []
         for index, evenim in enumerate(lst):
             if evenim.getData() == data or evenim.getTimp() == timp:
-                rsp.append(index)
+                rsp.append(evenim.getID())
             
             if evenim.getDescriere() == descriere:
-                return index
+                return evenim.getID()
 
         return rsp 
 
@@ -144,31 +144,31 @@ class listaEvenimente:
 def test_addEveniment():
     lst = listaEvenimente()
     lst.addEveniment("22/12/2020", "10:15", "Antrenament colindat")
-    lst.addEveniment("22/12/2020", "10:16", "Antrenament colindat")
-    lst.addEveniment("22/12/2020", "10:17", "Antrenament colindat")
+    lst.addEveniment("22/12/2020", "10:16", "Antrenament sport")
+    lst.addEveniment("22/12/2020", "10:17", "Antrenament clarinet")
     
     assert(lst.getSize() == 3)
 
 def test_stergeEveniment():
     lst = listaEvenimente()
     lst.addEveniment("22/12/2020", "10:15", "Antrenament colindat")
-    lst.addEveniment("22/12/2020", "10:16", "Antrenament colindat")
-    lst.addEveniment("22/12/2020", "10:17", "Antrenament colindat")
+    lst.addEveniment("22/12/2020", "10:16", "Antrenament fotbal")
+    lst.addEveniment("22/12/2020", "10:17", "Antrenament baschet")
     
     lst.stergeEveniment(1)
     lst.stergeEveniment(2)
     assert(lst.getSize() == 1)
 
     lst.addEveniment("22/12/2020", "10:16", "Antrenament colindat")
-    lst.addEveniment("22/12/2020", "10:17", "Antrenament colindat")
+    lst.addEveniment("22/12/2020", "10:17", "Antrenament programare")
     lst.stergeEveniment(3)
     assert(lst.getSize() == 2)
     
 def test_modifEveniment():
     lst = listaEvenimente()
-    lst.addEveniment("22/12/2020", "10:15", "Antrenament colindat")
-    lst.addEveniment("22/12/2020", "10:16", "Antrenament colindat")
-    lst.addEveniment("22/12/2020", "10:17", "Antrenament colindat")
+    lst.addEveniment("22/12/2020", "10:15", "Interviu companie random")
+    lst.addEveniment("22/12/2020", "10:16", "Adunare voluntari")
+    lst.addEveniment("22/12/2020", "10:17", "Strangere de fonduri")
     
     lst.modifEveniment(3, data=None, timp="11:12", descriere="Asculta-ma")
     assert(lst.getEveniment(lst.getEIndex(3)).getTimp() == "11:12")
@@ -180,11 +180,11 @@ def test_searchEvenim():
     lst.addEveniment("23/03/2019", "10:10", "Antrenament fotbal")
 
     ans = lst.searchEvenim(data = "22/12/2020")
-    assert(len(ans) == 1 and ans[0] == 0)
-    ans = lst.searchEvenim(timp = "13:12")
     assert(len(ans) == 1 and ans[0] == 1)
+    ans = lst.searchEvenim(timp = "13:12")
+    assert(len(ans) == 1 and ans[0] == 2)
     ans = lst.searchEvenim(descriere = "Antrenament fotbal")
-    assert(ans == 2)
+    assert(ans == 3)
 
 
 

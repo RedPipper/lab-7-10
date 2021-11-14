@@ -1,12 +1,14 @@
 """Modul UI"""
 from types import FunctionType
+from entities import eveniment
 from lista_evenimente import listaEvenimente
 from lista_persoane import listaPersoane
-
+from lista_inscrieri import listaInscrieri
 class consola:
     
     __events = listaEvenimente()
     __persoane = listaPersoane()
+    __inscrieri = listaInscrieri()
 
     def showPersoane(self):
         """Afiseaza lista de persoane
@@ -57,6 +59,55 @@ class consola:
     
     def exit(self):
         exit()
+    
+    def inscriePersoana(self):
+        self.showPersoane()
+        print('\n')
+        pers = input("Introdu numele persoanei alese ")
+        pers = self.__persoane.searchPers(nume = pers)
+
+        self.showEvenimente()
+        print('\n')
+        event = input("Introdu numărul evenimentului ales")
+
+        self.__inscrieri.inscriePersoana(pers,event)
+
+    def getComenzi(self):
+        comenzi = {"Afisează toate persoanele.":self.showPersoane,
+               "Afisează toate evenimentele.":self.showEvenimente,
+               "Adaugă persoană.":self.addPersoana,
+               "Adaugă eveniment.":self.addEveniment,
+               "Caută persoană":None,
+               "Caută eveniment":None,
+               "Înscrie o persoană la un eveniment.":self.inscriePersoana,
+               "Închide aplicația.":self.exit}
+
+        return comenzi
+
+    def getComanda(self, index):
+        comenzi = self.getComenzi()
+        
+        keys = list(comenzi.keys())
+        
+        return comenzi[keys[index-1]]
+        
+        
+
+    def start(self):
+        while True:
+            print("Comenzile posibile sunt: ")
+            comenzi = self.getComenzi()
+            for i, comanda in enumerate(comenzi.keys()):    
+                print(str(i+1) + '.' + comanda)
+            
+            choice = input("Introdu numărul comenzii alese:")
+            result = self.getComanda(int(choice))
+            print('_'*10)
+            result()
+            print('_'*10)
+
+            
+
 
 
     

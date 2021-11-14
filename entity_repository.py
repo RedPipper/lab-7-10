@@ -1,7 +1,7 @@
 """
 Modul care contine modul de memorare al listelor de entitati
 """
-from entities import persoana, eveniment  
+from entities import persoana, eveniment, legatura  
 
 class persList_repo:
     
@@ -93,16 +93,24 @@ test_eventList()
 
 
 class stocInscrieri:
+    """Clasă care reține legături între clasele de persoane si evenimente
+    după id. O legătură este o înscriere a unei persoane la un anumit eveniment.
+    
+    """
     def __init__(self):
         self.__inscrieri = []
 
-    def storeInscriere(self, IDpers, IDevent):
+    def storeInscriere(self, IDevent, IDpersoana):
         """Stochează legăturile 
 
         Args:
             IDpers (int): Id-ul persoanei înscrise
             IDevent (int): Id-ul evenimentului
         """
-        inscriere = (IDpers, IDevent)
+        inscriere = legatura(IDpersoana, IDevent)
         self.__inscrieri.append(inscriere)
     
+    def getAll(self):
+        return self.__inscrieri
+    
+
