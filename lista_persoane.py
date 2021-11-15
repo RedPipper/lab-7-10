@@ -35,13 +35,17 @@ class listaPersoane:
         id = self.__index
 
         pers = persoana(id, nume, adresa)
-
         try: 
             self.__valid.validator(pers)
-            self.__persoane.store(pers)
-        
         except ValueError as e:
             raise ValueError(e)
+
+        lpers = self.__persoane.getAll()
+        for p in lpers:
+            if p == pers:
+                raise ValueError("Persoana există deja în listă.")
+
+        self.__persoane.store(pers)
 
     def getPIndex(self, IDp):
         """Primeste index-ul catre persoana cu ID-ul cerut
@@ -57,7 +61,7 @@ class listaPersoane:
             if pers.getID() == IDp:
                 return i
         
-        return None
+        raise ValueError("Persoana nu a fost gasita.")
     
     def getPersoana(self, index):
         """Returneaza obiectul persoana de la index-ul oferit

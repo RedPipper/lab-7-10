@@ -11,10 +11,6 @@ class persList_repo:
         self.__pers = []
 
     def store(self, persoana):
-        for pers in self.__pers:
-            if pers == persoana:
-                raise ValueError("Persoana exista deja")
-
         self.__pers.append(persoana)
 
     def getAll(self):
@@ -50,9 +46,6 @@ class evenList_repo:
         self.__events = []
 
     def store(self, eveniment):
-        for even in self.__events:
-            if even == eveniment:
-                raise ValueError("Evenimentul exista deja ")
 
         self.__events.append(eveniment)
 

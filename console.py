@@ -4,11 +4,16 @@ from entities import eveniment
 from lista_evenimente import listaEvenimente
 from lista_persoane import listaPersoane
 from lista_inscrieri import listaInscrieri
+from randomGenerator import genEvent,genPersoana
+import random
+
+
 class consola:
     
     __events = listaEvenimente()
     __persoane = listaPersoane()
     __inscrieri = listaInscrieri()
+    __generator = (genEvent, genPersoana)
 
     def showPersoane(self):
         """Afiseaza lista de persoane
@@ -72,9 +77,24 @@ class consola:
 
         self.__inscrieri.inscriePersoana(pers,event)
 
+    def populate(self):
+        nEvent = random.randint(1,100)
+        nPers = random.randint(1,100)
+        (gEven, gPers) = self.__generator
+        for i in range(nEvent):
+            (data, timp, descriere) = gEven()
+            self.__events.addEveniment(data, timp, descriere)
+        
+        for i in range(nPers):
+            (nume, adresa)= gPers()
+            self.__persoane.addPersoana(nume, adresa)
+
+        print("Listele au fost populate!")
+
     def getComenzi(self):
         comenzi = {"Afisează toate persoanele.":self.showPersoane,
                "Afisează toate evenimentele.":self.showEvenimente,
+               "Populează listele":self.populate,
                "Adaugă persoană.":self.addPersoana,
                "Adaugă eveniment.":self.addEveniment,
                "Caută persoană":None,
@@ -100,7 +120,7 @@ class consola:
             for i, comanda in enumerate(comenzi.keys()):    
                 print(str(i+1) + '.' + comanda)
             
-            choice = input("Introdu numărul comenzii alese:")
+            choice = input("Introdu numărul comenzii alese: ")
             result = self.getComanda(int(choice))
             print('_'*10)
             result()

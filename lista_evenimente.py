@@ -35,9 +35,16 @@ class listaEvenimente:
 
         try:
             self.__validator.validator(event)
-            self.__evenim.store(event)
         except ValueError as e:
             raise ValueError(e)
+
+        evnts = self.__evenim.getAll()
+        for e in evnts:
+            if e == event:
+                raise ValueError("Evenimentul există deja în listă.")
+        
+        self.__evenim.store(event)
+
 
     def getEIndex(self, id):
         """Returneaza index-ul evenimentului cu id-ul dat
