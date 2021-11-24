@@ -1,4 +1,4 @@
-from entities import persoana, eveniment
+from repository.entities import persoana, eveniment
 
 class validPersoana:
 

@@ -1,9 +1,9 @@
 """Modul UI"""
 from types import FunctionType
-from entities import eveniment
-from lista_evenimente import listaEvenimente
-from lista_persoane import listaPersoane
-from lista_inscrieri import listaInscrieri
+from repository.entities import eveniment
+from controller.lista_evenimente import listaEvenimente
+from controller.lista_persoane import listaPersoane
+from controller.lista_inscrieri import listaInscrieri
 from randomGenerator import genEvent,genPersoana
 import random
 

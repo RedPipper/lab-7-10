@@ -1,4 +1,4 @@
-from entity_repository import stocInscrieri
+from repository.entity_repository import stocInscrieri
 
 class listaInscrieri:
     def __init__(self):

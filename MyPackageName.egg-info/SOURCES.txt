@@ -1,0 +1,13 @@
+README.md
+setup.py
+MyPackageName.egg-info/PKG-INFO
+MyPackageName.egg-info/SOURCES.txt
+MyPackageName.egg-info/dependency_links.txt
+MyPackageName.egg-info/top_level.txt
+controller/__init__.py
+controller/lista_evenimente.py
+controller/lista_inscrieri.py
+controller/lista_persoane.py
+repository/__init__.py
+repository/entities.py
+repository/entity_repository.py

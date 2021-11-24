@@ -2,8 +2,8 @@
 Modul care contine listele de entitati si operatiile 
 care pot fi realizate pe acestea
 """
-from entity_repository import persList_repo
-from entities import persoana
+from repository.entity_repository import persList_repo
+from repository.entities import persoana
 from validator import validPersoana
 class listaPersoane:
     def __init__(self, index = 0):

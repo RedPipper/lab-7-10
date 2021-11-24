@@ -1,7 +1,7 @@
 """
 Modul care contine modul de memorare al listelor de entitati
 """
-from entities import persoana, eveniment, legatura  
+from repository.entities import persoana, eveniment, legatura  
 
 class persList_repo:
     
