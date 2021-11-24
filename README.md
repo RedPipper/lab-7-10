@@ -27,7 +27,7 @@ Creați o aplicație care permite:
  - [x] **T3:** Cizelare UI 
 ## Iterația 3
  - [x] **T3:** F5.1
- - [ ] **T1:** F5.2
+ - [x] **T1:** F5.2
  - [ ] **T2:** F5.3
  - [ ] **T3:** General review
 
