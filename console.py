@@ -6,7 +6,22 @@ from controller.lista_persoane import listaPersoane
 from controller.lista_inscrieri import listaInscrieri
 from randomGenerator import genEvent,genPersoana
 import random
+from datetime import date
 
+def convertData(data):
+    data = data.split('/')
+    data = date(int(data[2]), int(data[1]), int(data[0]))
+    return data
+
+def dateKey(a:eveniment):
+    dataA = convertData(a.getData())
+    
+    return dataA 
+
+def descKey(a:eveniment):
+    descA = a.getDescriere()
+
+    return descA
 
 class consola:
     
@@ -14,7 +29,7 @@ class consola:
     __persoane = listaPersoane()
     __inscrieri = listaInscrieri()
     __generator = (genEvent, genPersoana)
-
+    
     def showPersoane(self):
         """Afiseaza lista de persoane
         """
@@ -75,7 +90,7 @@ class consola:
         print('\n')
         event = input("Introdu numărul evenimentului ales")
 
-        self.__inscrieri.inscriePersoana(pers,event)
+        self.__inscrieri.inscriePersoana(pers,int(event))
 
     def populate(self):
         nEvent = random.randint(1,100)
@@ -91,14 +106,63 @@ class consola:
 
         print("Listele au fost populate!")
 
+    def cautaPersoana(self):
+        """Cauta persoana cu numele dat
+        """
+        nume = input("Introdu numele persoanei cautate: ")
+
+        
+        res = self.__persoane.searchPers(nume = nume)
+        res = self.__persoane.getPIndex(res)
+        print(self.__persoane.getPersoana(res))
+        
+    def cautaEveniment(self):
+        """Cauta un eveniment dupa ID
+
+        """
+        res = input("Introdu ID-ul evenimentului cautat: ")
+        res = int(res)
+        res = self.__events.getEveniment(self.__events.getEIndex(res))
+        print(res)
+
+    def evenAfisData(self):
+
+        numePers = input("Introdu numele persoanei: ")
+        idP = self.__persoane.searchPers(numePers)
+        
+        inscrieri = self.__inscrieri.getInscrieriPers(idP)
+        inscrieri = [self.__events.getEIndex(i) for i in inscrieri]
+        inscrieri = [self.__events.getEveniment(i) for i in inscrieri]
+
+        sorted(inscrieri, key=dateKey)
+        for inst in inscrieri:
+            print(inst)
+
+
+    def evenAfisDesc(self):
+
+        numePers = input("Introdu numele persoanei: ")
+        idP = self.__persoane.searchPers(numePers)
+        
+        inscrieri = self.__inscrieri.getInscrieriPers(idP)
+        inscrieri = [self.__events.getEIndex(i) for i in inscrieri]
+        inscrieri = [self.__events.getEveniment(i) for i in inscrieri]
+
+        sorted(inscrieri, key=descKey, reverse=True)
+        for inst in inscrieri:
+            print(inst)
+
+
     def getComenzi(self):
         comenzi = {"Afisează toate persoanele.":self.showPersoane,
                "Afisează toate evenimentele.":self.showEvenimente,
                "Populează listele":self.populate,
                "Adaugă persoană.":self.addPersoana,
                "Adaugă eveniment.":self.addEveniment,
-               "Caută persoană":None,
-               "Caută eveniment":None,
+               "Caută persoană":self.cautaPersoana,
+               "Caută eveniment":self.cautaEveniment,
+               "Afiseaza evenimentele persoanei sortate dupa data: ":self.evenAfisData,
+               "Afiseaza evenimentele persoanei sortate dupa descriere: ":self.evenAfisDesc,
                "Înscrie o persoană la un eveniment.":self.inscriePersoana,
                "Închide aplicația.":self.exit}
 

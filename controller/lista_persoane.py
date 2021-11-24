@@ -2,7 +2,7 @@
 Modul care contine listele de entitati si operatiile 
 care pot fi realizate pe acestea
 """
-from repository.entity_repository import persList_repo
+from repository import persList_repo
 from repository.entities import persoana
 from validator import validPersoana
 class listaPersoane:
@@ -132,7 +132,7 @@ class listaPersoane:
 
         #search section
         lista = self.getAll()
-        for index, pers in enumerate(lista):
+        for pers in lista:
             if search.getNume() == None:
                 if search.getAdresa() == pers.getAdresa():
                     return pers.getID()

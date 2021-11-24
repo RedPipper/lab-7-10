@@ -1,5 +1,5 @@
-from repository.entity_repository import evenList_repo
-from repository.entities import eveniment
+from repository import evenList_repo
+from repository import eveniment
 from validator import validEveniment
 
 class listaEvenimente:

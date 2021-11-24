@@ -11,8 +11,9 @@ def genPersoana():
         nume += ''.join(random.choice(string.ascii_uppercase)) 
         nLen = random.randint(3,7)
         nume +=  ''.join(random.choice(string.ascii_lowercase) for i in range(nLen) ) 
-        nume += " "
+        nume+=' '
     
+    nume = nume[:-1]
     adresa = ""
     aLen = random.randint(2,6)
 
@@ -22,6 +23,7 @@ def genPersoana():
         adresa+= ''.join(random.choice(string.ascii_lowercase) for _ in range(nLen))
         adresa+= " "
 
+    adresa = adresa[:-1]
     return (nume, adresa)
 
 def genEvent():
@@ -60,6 +62,8 @@ def genEvent():
     data += '/' + str(luna) if luna>=10 else '/' + '0'+str(luna)  
     data+='/' + str(an)
 
+
+    descriere = descriere[:-1]
     return (data, timp, descriere)
 
 
