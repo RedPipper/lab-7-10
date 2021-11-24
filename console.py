@@ -138,6 +138,28 @@ class consola:
         for inst in inscrieri:
             print(inst)
 
+    def persParticipMax(self):
+        """Afiseaza persoanele cu cele mai multe participari
+        """
+        pers = self.__persoane.getAll()
+        maxi = 0
+        rsp = []
+        for p in pers:
+            insc = self.__inscrieri.getInscrieriPers(p.getID())
+            if maxi < len(insc):
+                maxi = len(insc)
+                rsp.clear()
+                rsp.append(p)
+            elif maxi == len(insc):
+                rsp.append(p)
+        
+        for pers in rsp:
+            print(pers)
+            print("Nr inscrieri: {}".format(maxi))
+            print("*"*10)
+        
+        
+
 
     def evenAfisDesc(self):
 
@@ -156,13 +178,14 @@ class consola:
     def getComenzi(self):
         comenzi = {"Afisează toate persoanele.":self.showPersoane,
                "Afisează toate evenimentele.":self.showEvenimente,
+               "Afisează persoanele cu cele mai multe inscrieri":self.persParticipMax,
                "Populează listele":self.populate,
                "Adaugă persoană.":self.addPersoana,
                "Adaugă eveniment.":self.addEveniment,
-               "Caută persoană":self.cautaPersoana,
-               "Caută eveniment":self.cautaEveniment,
-               "Afiseaza evenimentele persoanei sortate dupa data: ":self.evenAfisData,
-               "Afiseaza evenimentele persoanei sortate dupa descriere: ":self.evenAfisDesc,
+               "Caută persoană.":self.cautaPersoana,
+               "Caută eveniment.":self.cautaEveniment,
+               "Afiseaza evenimentele persoanei sortate dupa data.":self.evenAfisData,
+               "Afiseaza evenimentele persoanei sortate dupa descriere.":self.evenAfisDesc,
                "Înscrie o persoană la un eveniment.":self.inscriePersoana,
                "Închide aplicația.":self.exit}
 
