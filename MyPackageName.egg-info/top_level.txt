@@ -1,5 +1,0 @@
-domain
-repository
-service
-tests
-validator
