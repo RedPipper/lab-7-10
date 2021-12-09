@@ -1,10 +1,10 @@
 """Modul UI"""
 from types import FunctionType
-from repository.entities import eveniment
-from controller.lista_evenimente import listaEvenimente
-from controller.lista_persoane import listaPersoane
-from controller.lista_inscrieri import listaInscrieri
-from randomGenerator import genEvent,genPersoana
+from domain.entities import eveniment, legatura
+from service.lista_evenimente import listaEvenimente
+from service.lista_persoane import listaPersoane
+from service.lista_inscrieri import listaInscrieri
+from randomGenerator import genEvent,genPersoana, genInsc
 import random
 from datetime import date
 
@@ -21,14 +21,14 @@ def dateKey(a:eveniment):
 def descKey(a:eveniment):
     descA = a.getDescriere()
 
-    return descA
+    return len(descA)
 
 class consola:
     
     __events = listaEvenimente()
     __persoane = listaPersoane()
     __inscrieri = listaInscrieri()
-    __generator = (genEvent, genPersoana)
+    __generator = (genEvent, genPersoana, genInsc)
     
     def showPersoane(self):
         """Afiseaza lista de persoane
@@ -95,7 +95,8 @@ class consola:
     def populate(self):
         nEvent = random.randint(1,100)
         nPers = random.randint(1,100)
-        (gEven, gPers) = self.__generator
+        nInsc = random.randint(1,1000)
+        (gEven, gPers, gInsc) = self.__generator
         for i in range(nEvent):
             (data, timp, descriere) = gEven()
             self.__events.addEveniment(data, timp, descriere)
@@ -104,6 +105,16 @@ class consola:
             (nume, adresa)= gPers()
             self.__persoane.addPersoana(nume, adresa)
 
+        duplicateCounter = 0
+        for i in range(nInsc):
+            (idP, idE) = gInsc(nPers, nEvent)
+            try:
+                self.__inscrieri.inscriePersoana(idP, idE)
+            except ValueError as e:
+                duplicateCounter +=1
+
+        print("S-au realizat {} inscrieri".format(duplicateCounter))
+        print()
         print("Listele au fost populate!")
 
     def cautaPersoana(self):
@@ -134,7 +145,7 @@ class consola:
         inscrieri = [self.__events.getEIndex(i) for i in inscrieri]
         inscrieri = [self.__events.getEveniment(i) for i in inscrieri]
 
-        sorted(inscrieri, key=dateKey)
+        inscrieri.sort(key=dateKey)
         for inst in inscrieri:
             print(inst)
 
@@ -170,9 +181,17 @@ class consola:
         inscrieri = [self.__events.getEIndex(i) for i in inscrieri]
         inscrieri = [self.__events.getEveniment(i) for i in inscrieri]
 
-        sorted(inscrieri, key=descKey, reverse=True)
+        inscrieri.sort(key=descKey, reverse=True)
         for inst in inscrieri:
             print(inst)
+
+    def top20(self):
+        ans = self.__inscrieri.topEvenim()
+        for p in ans:
+            pos = self.__events.getEIndex(p)
+            print(self.__events.getEveniment(pos))
+            print(ans[p])
+
 
 
     def getComenzi(self):
@@ -187,6 +206,7 @@ class consola:
                "Afiseaza evenimentele persoanei sortate dupa data.":self.evenAfisData,
                "Afiseaza evenimentele persoanei sortate dupa descriere.":self.evenAfisDesc,
                "Înscrie o persoană la un eveniment.":self.inscriePersoana,
+               "Top 20% evenimente cu cele mai multe inscrieri.":self.top20,
                "Închide aplicația.":self.exit}
 
         return comenzi

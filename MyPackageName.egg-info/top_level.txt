@@ -1,2 +1,5 @@
-controller
+domain
 repository
+service
+tests
+validator

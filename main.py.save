@@ -1,0 +1,11 @@
+from console import consola
+import pytest
+
+pytest.main(args=["tests/domain_tests.py pytest.main(args=["tests/domain_tests.py"])
+"])
+pytest.main(args=["tests/repo_tests.py"])
+pytest.main(args=["tests/service_tests.py"])
+
+app = consola()
+app.start()
+

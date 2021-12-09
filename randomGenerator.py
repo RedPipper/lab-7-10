@@ -66,6 +66,11 @@ def genEvent():
     descriere = descriere[:-1]
     return (data, timp, descriere)
 
+def genInsc(maxA, maxB):
+    idP = random.randint(1, maxA)
+    idE = random.randint(1, maxB)
+
+    return (idP, idE)
 
 if __name__ == "__main__":
     while True:

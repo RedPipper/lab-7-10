@@ -32,7 +32,10 @@ class persoana:
 
     def setAdresa(self, adresa):
         self.__adresa = adresa
-        
+    
+    def storeFormat(self):
+        return "{}||{}||{}".format(self.__personID, self.__nume, self.__adresa)
+
     def __eq__(self, other):
         """Defineste conceptul de egalitate intre persoane
         pers1 == pers2
@@ -53,23 +56,6 @@ class persoana:
             [type]: [description]
         """
         return "Persoana cu ID-ul: "+ str(self.__personID) + "\n" + "       Numele: " + self.__nume + '\n' + "     Adresa: " + self.__adresa + '\n' 
-    
-def test_createPersoana():
-    pers1 = persoana(1, "Robert Codreanu", "Undeva la tara")
-    assert(pers1.getID() == 1)
-    assert(pers1.getNume() == "Robert Codreanu")
-    assert(pers1.getAdresa() == "Undeva la tara")
-
-    pers1.setNume("Stratan Alexia")
-    pers1.setAdresa("Pacurari.")
-    pers1.setId(2)
-
-    assert(pers1.getID() == 2)
-    assert(pers1.getAdresa() == "Pacurari.")
-    assert(pers1.getNume() == "Stratan Alexia")
-
-test_createPersoana()
-
 
 class eveniment:
     def __init__(self, IDe, data, timp, descriere):
@@ -110,9 +96,8 @@ class eveniment:
     def setDescriere(self, descriere):
         self.__descriere = descriere
 
-    def validate(self):
-        """Valideaza datele din obiect
-        """
+    def storeFormat(self):
+        return "{}||{}||{}||{}".format(self.__ID, self.__data, self.__timp, self.__descriere)
 
     def __eq__(self, other):
         if self.__descriere.replace(" ","") == other.getDescriere().replace(" ",""):
@@ -130,27 +115,6 @@ class eveniment:
         
 
 
-
-
-def test_creatEveniment():
-    even = eveniment(1, "12/02/2022", "12:02", "Eveniment random")
-    assert(even.getID() == 1)
-    assert(even.getDescriere() == "Eveniment random")
-    assert(even.getData() == "12/02/2022")
-    assert(even.getTimp() == "12:02")
-    
-    even.setTimp("12:34")
-    even.setData("22/12/2021")
-    even.setID(2)
-
-    assert(even.getTimp() == "12:34")
-    assert(even.getData() == "22/12/2021")
-    assert(even.getID() == 2)
-    
-
-test_creatEveniment()
-
-
 class legatura:
     def __init__(self, IDp, IDe):
         self.__IDp = IDp
@@ -161,4 +125,10 @@ class legatura:
 
     def getIDeven(self):
         return self.__IDe
+
+    def storeFormat(self):
+        return "{}||{}".format(self.__IDp, self.__IDe)
+
+    def __eq__(self, __o: object):
+        return self.__IDp == __o.getIDpers() and self.__IDe == __o.getIDeven()
 
