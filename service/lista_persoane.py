@@ -127,6 +127,32 @@ class listaPersoane:
 
         Returns:
             int: index-ul persoanei
+
+
+
+        ###############################ANALIZA COMPLEXITATII#####################################
+
+                Printr-o simpla observare a algoritmului putem determina faptul ca avem, in mare parte, 
+            un numar constant de operatii, mai putin apelul functiei "self.getAll()" si structura 
+            repetitiva de dupa.
+                
+                Astfel, determinam ca:
+                    1. Prin urmarirea apelului "self.getAll()" observam ca acesta are o complexitate 
+                    in timp dependenta de numarul de valori din fisier (posibil si viteza de citire din fisier??).
+                        deci la T(n) se adauga numarul de valori din fisier ( T(n) = n ).
+                    
+                    2. Prin structura repetitiva urmatoare (linia 166) este la fel dependenta de numarul de valori din
+                    fisier (in cel mai rau caz), astfel se adauga la T(n) aceeasi valoare 
+                    ( rezulta ca in final T(n) = 2*n)
+
+                    * Pentru simplificare, am evitat adaugarea numarului de operatii constante*
+
+                In concluzie, algoritmul prezinta urmatoarele complexitati:
+
+                    - Marginea superioara: T(n) este inclusa in O(n)
+                    - Marginea inferioara: T(n) este inclusa in Ω(1)
+                    - Complexitatea generala: O(n) este inclusa θ(n) 
+
         """
         #validate section
         search = persoana(0, nume, adresa)
@@ -145,7 +171,7 @@ class listaPersoane:
                 if search.getNume() == pers.getNume():
                     return pers.getID()
             if search.getNume() == pers.getNume() and search.getAdresa() == pers.getAdresa():
-                return pers.getID()
+                    return pers.getID()
         
 
          
