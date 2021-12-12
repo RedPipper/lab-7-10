@@ -4,7 +4,7 @@ from domain.entities import eveniment, legatura
 from service.lista_evenimente import listaEvenimente
 from service.lista_persoane import listaPersoane
 from service.lista_inscrieri import listaInscrieri
-from randomGenerator import genEvent,genPersoana, genInsc
+from auxiliaries.randomGenerator import genEvent,genPersoana, genInsc
 import random
 from datetime import date
 

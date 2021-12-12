@@ -48,7 +48,7 @@ class listaPersoane:
 
         self.__persoane.store(pers)
 
-    def getPIndex(self, IDp):
+    def getPIndex(self, IDp, pos=0):
         """Primeste index-ul catre persoana cu ID-ul cerut
 
         Args:
@@ -58,11 +58,14 @@ class listaPersoane:
             int: index-ul din lista al obiectului persoana cautat
         """
         lst = self.__persoane.getAll()
-        for i, pers in enumerate(lst):
-            if pers.getID() == IDp:
-                return i
         
-        raise ValueError("Persoana nu a fost gasita.")
+        if pos > self.getSize() :
+            raise ValueError("Persoana nu exista.")
+        elif lst[pos].getID() == IDp:
+                return pos
+        else:
+            return self.getPIndex(IDp, pos = pos + 1 )
+
     
     def getPersoana(self, index):
         """Returneaza obiectul persoana de la index-ul oferit

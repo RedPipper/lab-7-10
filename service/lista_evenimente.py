@@ -46,8 +46,7 @@ class listaEvenimente:
         
         self.__evenim.store(event)
 
-
-    def getEIndex(self, id):
+    def getEIndex(self, id, pos = 0):
         """Returneaza index-ul evenimentului cu id-ul dat
 
         Args:
@@ -58,9 +57,14 @@ class listaEvenimente:
         """
 
         lst = self.__evenim.getAll()
-        for i,even in enumerate(lst):
-            if even.getID() == id:
-                return i
+
+        if pos >= self.getSize():
+            raise ValueError("Persoana nu exista.")
+        elif lst[pos].getID() == id:
+                return pos
+        else:
+            return self.getEIndex(id, pos=pos+1)
+        
 
     def stergeEveniment(self, id):
         """Sterge eveniment
