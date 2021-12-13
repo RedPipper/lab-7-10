@@ -5,6 +5,7 @@ from service.lista_evenimente import listaEvenimente
 from service.lista_persoane import listaPersoane
 from service.lista_inscrieri import listaInscrieri
 from auxiliaries.randomGenerator import genEvent,genPersoana, genInsc
+from auxiliaries.sorters import mergeSort, bingoSort
 import random
 from datetime import date
 
@@ -13,10 +14,27 @@ def convertData(data):
     data = date(int(data[2]), int(data[1]), int(data[0]))
     return data
 
-def dateKey(a:eveniment):
+def dateCmp(a:eveniment, b:eveniment):
+    #returneaza criteriile de comparare pentru evenimente
+
     dataA = convertData(a.getData())
+    dataB = convertData(b.getData())
     
-    return dataA 
+    if dataA == dataB:
+        oraA = a.getTimp()
+        oraA.split(':')
+        
+        oraB = b.getTimp()
+        oraB.split(':')
+
+        if oraA[0] == oraB[0]:
+            return oraA[1] < oraB[1]
+        else:
+            return oraA[0] < oraB[0]
+    
+    else:
+        return dataA < dataB
+        
 
 def descKey(a:eveniment):
     descA = a.getDescriere()
@@ -145,7 +163,7 @@ class consola:
         inscrieri = [self.__events.getEIndex(i) for i in inscrieri]
         inscrieri = [self.__events.getEveniment(i) for i in inscrieri]
 
-        inscrieri.sort(key=dateKey)
+        inscrieri = mergeSort(inscrieri, cmp = dateCmp, reverse=False)
         for inst in inscrieri:
             print(inst)
 
@@ -181,7 +199,8 @@ class consola:
         inscrieri = [self.__events.getEIndex(i) for i in inscrieri]
         inscrieri = [self.__events.getEveniment(i) for i in inscrieri]
 
-        inscrieri.sort(key=descKey, reverse=True)
+        inscrieri = mergeSort(inscrieri, key=descKey, reverse=True)
+
         for inst in inscrieri:
             print(inst)
 

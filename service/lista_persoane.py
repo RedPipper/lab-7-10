@@ -152,9 +152,10 @@ class listaPersoane:
 
                 In concluzie, algoritmul prezinta urmatoarele complexitati:
 
+                    T(n) = 2*n
                     - Marginea superioara: T(n) este inclusa in O(n)
-                    - Marginea inferioara: T(n) este inclusa in Ω(1)
-                    - Complexitatea generala: O(n) este inclusa θ(n) 
+                    - Marginea inferioara: T(n) este inclusa in Ω(1) 
+                    - Complexitatea generala: T(n) este inclusa θ(n) 
 
         """
         #validate section
@@ -166,6 +167,7 @@ class listaPersoane:
 
         #search section
         lista = self.getAll()
+        
         for pers in lista:
             if search.getNume() == None:
                 if search.getAdresa() == pers.getAdresa():
